@@ -1,0 +1,4 @@
+- Documentar headers para doxygen
+- Descripción para sourceforge y freshmeat
+- Aprender y utilizar CPack
+- Upgrade gpl version to 3

@@ -1,0 +1,61 @@
+# doxygen stuff
+find_program(DOXYGEN doxygen PATHS "c:/Archivos de programa/doxygen" PATH_SUFFIXES bin)
+if(NOT DOXYGEN STREQUAL DOXYGEN-NOTFOUND)
+	if(UNIX)
+		set(ext sh)
+	else()
+		set(cmd_echo "@echo off")
+		set(ext bat)
+	endif()
+	set(doxydir ${CMAKE_CURRENT_BINARY_DIR})
+	set(doxyfile "${doxydir}/fl_plug.dox")
+	set(doxyrun "${doxydir}/rundoxy.${ext}")
+	set(html_out "${CMAKE_CURRENT_BINARY_DIR}/htmldocs")
+
+	find_program(HHC hhc PATHS "c:/Archivos de programa/HTML Help Workshop")
+	if(NOT HHC STREQUAL HHC-NOTFOUND)
+		set_property(GLOBAL PROPERTY GENERAR_DOCS_CHM 1)
+		string(REPLACE / \\ HHC ${HHC})
+		set(chm_toggle YES)
+		set(chm_file "fl_plug.chm")
+		set(chm_hcc ${HHC})
+		set(MOVE_CHM_CMD "move \"${html_out}/${chm_file}\" \"${doxydir}\"")
+		string(REPLACE / \\ MOVE_CHM_CMD ${MOVE_CHM_CMD})
+	else(NOT HHC STREQUAL HHC-NOTFOUND)
+		set(chm_toggle NO)
+		set(chm_file "")
+		set(chm_hcc "")
+		set(MOVE_CHM_CMD "")
+	endif()
+	
+	find_program(DOT dot PATHS "c:/Archivos de programa" PATH_SUFFIXES Graphviz2.26/bin Graphviz2.26.3/bin)
+	if(DOT STREQUAL DOT-NOTFOUND)
+		set(dot_toggle NO)
+	else()
+		set(dot_toggle YES)
+		if(NOT UNIX)
+			string(REPLACE / \\ DOT ${DOT})
+		endif()
+	endif()
+
+	if(WIN32)
+		string(REPLACE / \\ html_out ${html_out})
+		string(REPLACE / \\ doxydir ${doxydir})
+	endif()
+	
+	configure_file("fl_plug.dox.in" ${doxyfile})
+	configure_file(rundoxy.in ${doxyrun})
+	
+	if(UNIX OR APPLE)
+		execute_process(COMMAND chmod +x ${doxyrun})
+	endif()
+	add_custom_target(${pTarget}
+							ALL
+							COMMENT "Generando docs..."
+							COMMAND ${doxyrun}
+							VERBATIM)
+
+	 if(UNIX)
+		install(DIRECTORY ${html_out} DESTINATION "share/doc/fl_plug" USE_SOURCE_PERMISSIONS)
+	endif()
+endif()

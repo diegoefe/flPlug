@@ -31,7 +31,7 @@ PROJECT_NAME           = fl_plug
 # This could be handy for archiving the generated documentation or
 # if some version control system is used.
 
-PROJECT_NUMBER         = 1.0.0.2802
+PROJECT_NUMBER         = @FLP_MAJOR@.@FLP_MINOR@.@FLP_RELEASE@
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description for a project that appears at the top of each page and should give viewer a quick idea about the purpose of the project. Keep the description short.
 
@@ -598,7 +598,9 @@ WARN_LOGFILE           = doxygen.log
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/fl_plug.h
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/intro.txt \
+								 @PROJECT_SOURCE_DIR@/src/fl_plug.h \
+								 @PROJECT_BINARY_DIR@/src/fl_plug_version.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -1394,7 +1396,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           = @PROJECT_SOURCE_DIR@/qryl
+INCLUDE_PATH           = @CMAKE_CURRENT_SOURCE_DIR@
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the

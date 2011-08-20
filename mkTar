@@ -1,0 +1,21 @@
+aca=$(basename "$(pwd)")
+tf="${aca}_$(date +%Y%m%d_%H%M%S).tar"
+unset C
+declare -a C
+C[${#C[*]}]="git gc"
+C[${#C[*]}]="git fsck --full"
+C[${#C[*]}]="cd .."
+C[${#C[*]}]="tar cvfW ${tf} ${aca}"
+C[${#C[*]}]="bzip2 -zv9 ${tf}"
+C[${#C[*]}]="bzip2 -t ${tf}.bz2"
+C[${#C[*]}]="cd \"${aca}\""
+
+for i in $(seq 0 $((${#C[@]} - 1)))
+do
+	eval "${C[i]}"
+	if [ $? -gt 0 ]; then
+		echo "Error ejecutando '${C[i]}'"
+		break;
+	fi
+done
+

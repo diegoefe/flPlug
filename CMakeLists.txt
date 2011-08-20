@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.6.4)
 project(fl_plug)
 
+set(FLP_MAJOR 0)
+set(FLP_MINOR 0)
+set(FLP_RELEASE 1)
+
 set(CMAKE_BUILD_TYPE Release CACHE TYPE INTERNAL FORCE)
 
 if(WIN32)
@@ -23,4 +27,5 @@ endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_subdirectory(src)
+add_subdirectory(doc)
 add_subdirectory(test)

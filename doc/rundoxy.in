@@ -1,0 +1,3 @@
+@cmd_echo@
+"@DOXYGEN@" @doxyfile@
+@MOVE_CHM_CMD@
