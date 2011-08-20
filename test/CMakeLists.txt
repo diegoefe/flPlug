@@ -1,9 +1,11 @@
 function(setFluid pName)
-	add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${pName}.cpp
-							 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-							 COMMENT "Running '${FLTK_FLUID_EXECUTABLE}' on ${pName}.fl..."
-							 COMMAND ${FLTK_FLUID_EXECUTABLE} -c ${pName}.fl
-							 DEPENDS ${pName}.fl)
+	if(NOT FLUID STREQUAL FLUID-NOTFOUND)
+		add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${pName}.cpp
+								 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+								 COMMENT "Running '${FLUID}' on ${pName}.fl..."
+								 COMMAND ${FLUID} -c ${pName}.fl
+								 DEPENDS ${pName}.fl)
+	endif()
 endfunction()
 
 setFluid(basic_ui)

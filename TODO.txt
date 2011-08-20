@@ -1,4 +1,7 @@
+- Eliminar la consola en windows (subsystem:windows)
 - Documentar headers para doxygen
-- Descripción para sourceforge y freshmeat
+- Descripcion para sourceforge y freshmeat
 - Aprender y utilizar CPack
 - Upgrade gpl version to 3
+- Poner un namespace flplug y mejorar los nombres
+- Crear mejor tests
