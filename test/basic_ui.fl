@@ -1,0 +1,23 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0300 
+header_name {.h} 
+code_name {.cpp}
+class Basic_UI {open
+} {
+  Function {Basic_UI()} {open protected
+  } {
+    Fl_Window win_ {
+      label {Basic test} open
+      protected xywh {483 191 285 262} type Double box PLASTIC_UP_BOX resizable modal size_range {280 157 0 0} visible
+    } {
+      Fl_Button push_ {
+        label {Push me!} selected
+        protected xywh {15 20 130 30}
+      }
+    }
+  }
+  Function {~Basic_UI()} {open return_type virtual
+  } {
+    code {delete win_;} {}
+  }
+} 
