@@ -25,7 +25,7 @@ DOXYFILE_ENCODING      = UTF-8
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded
 # by quotes) that should identify the project.
 
-PROJECT_NAME           = fl_plug
+PROJECT_NAME           = flPlug
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number.
 # This could be handy for archiving the generated documentation or
@@ -599,8 +599,8 @@ WARN_LOGFILE           = doxygen.log
 # with spaces.
 
 INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/intro.txt \
-								 @PROJECT_SOURCE_DIR@/src/fl_plug.h \
-								 @PROJECT_BINARY_DIR@/src/fl_plug_version.h
+								 @PROJECT_SOURCE_DIR@/src/flPlug.h \
+								 @PROJECT_BINARY_DIR@/src/flPlug_version.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is

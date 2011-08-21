@@ -3,9 +3,9 @@
 	@author Diego Florio
  
 	@section use Use
-	@li Include fl_plug.h
-	@li Uni* (Linux, FreeBSD): link to it: -L/path/to/lib/directory -lfl_plug
-	@li Windows (9x, 2000, XP): include /path/to/fl_plug.lib y link
+	@li Include flPlug.h
+	@li Uni* (Linux, FreeBSD): link to it: -L/path/to/lib/directory -lflPlug
+	@li Windows (9x, 2000, XP): include /path/to/flPlug.lib y link
  
 	@page intro Overview
 		Library that provides a type-safe event callback interface for the FLTK library

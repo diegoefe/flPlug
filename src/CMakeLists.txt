@@ -1,8 +1,8 @@
-add_library(fl_plug STATIC fl_plug.cpp)
-set(ver_file ${CMAKE_CURRENT_BINARY_DIR}/fl_plug_version.h)
+add_library(flPlug STATIC flPlug.cpp)
+set(ver_file ${CMAKE_CURRENT_BINARY_DIR}/flPlug_version.h)
 configure_file(version.h.in ${ver_file})
 
 if(UNIX)
-	install(FILES fl_plug.h ${ver_file} DESTINATION include)
-	install(TARGETS fl_plug DESTINATION lib)
+	install(FILES flPlug.h ${ver_file} DESTINATION include)
+	install(TARGETS flPlug DESTINATION lib)
 endif(UNIX)

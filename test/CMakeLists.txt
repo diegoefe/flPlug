@@ -10,4 +10,7 @@ endfunction()
 
 setFluid(basic_ui)
 add_executable(basic basic_main.cpp basic.cpp basic_ui.cpp)
-target_link_libraries(basic fl_plug ${FLTK_LIBRARIES})
+target_link_libraries(basic flPlug ${FLTK_LIBRARIES})
+
+add_executable(simple simple.cpp)
+target_link_libraries(simple flPlug ${FLTK_LIBRARIES})

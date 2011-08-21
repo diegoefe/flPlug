@@ -2,11 +2,11 @@
 #define BASIC_H_INCLUDED
 
 #include "basic_ui.h"
-#include "fl_plug.h"
+#include "flPlug.h"
 
 class BasicWin
 	: public Basic_UI,
-	  public CBPlugger<BasicWin>
+	  public fl::Plugger<BasicWin>
 {
 public:
 	BasicWin();

@@ -1,8 +1,11 @@
 #ifndef FL_PLUG_VERSION_H_INCLUDED
 #define FL_PLUG_VERSION_H_INCLUDED
 
+/*! @brief flPlug major version number */
 #define FL_PLUG_MAJOR_VERSION @FLP_MAJOR@
+/*! @brief flPlug minor version number */
 #define FL_PLUG_MINOR_VERSION @FLP_MINOR@
+/*! @brief flPlug release version number */
 #define FL_PLUG_RELEASE_VERSION @FLP_RELEASE@
 
 #endif

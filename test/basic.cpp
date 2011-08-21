@@ -1,7 +1,7 @@
 #include "basic.h"
 #include <FL/fl_ask.H>
 
-BasicWin::BasicWin() : CBPlugger<BasicWin>("basic") {
+BasicWin::BasicWin() {
 	plug(push_, &BasicWin::push);
 }
 

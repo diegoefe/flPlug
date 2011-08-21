@@ -8,7 +8,7 @@ if(NOT DOXYGEN STREQUAL DOXYGEN-NOTFOUND)
 		set(ext bat)
 	endif()
 	set(doxydir ${CMAKE_CURRENT_BINARY_DIR})
-	set(doxyfile "${doxydir}/fl_plug.dox")
+	set(doxyfile "${doxydir}/flPlug.dox")
 	set(doxyrun "${doxydir}/rundoxy.${ext}")
 	set(html_out "${CMAKE_CURRENT_BINARY_DIR}/htmldocs")
 
@@ -17,7 +17,7 @@ if(NOT DOXYGEN STREQUAL DOXYGEN-NOTFOUND)
 		set_property(GLOBAL PROPERTY GENERAR_DOCS_CHM 1)
 		string(REPLACE / \\ HHC ${HHC})
 		set(chm_toggle YES)
-		set(chm_file "fl_plug.chm")
+		set(chm_file "flPlug.chm")
 		set(chm_hcc ${HHC})
 		set(MOVE_CHM_CMD "move \"${html_out}/${chm_file}\" \"${doxydir}\"")
 		string(REPLACE / \\ MOVE_CHM_CMD ${MOVE_CHM_CMD})
@@ -43,19 +43,19 @@ if(NOT DOXYGEN STREQUAL DOXYGEN-NOTFOUND)
 		string(REPLACE / \\ doxydir ${doxydir})
 	endif()
 	
-	configure_file("fl_plug.dox.in" ${doxyfile})
+	configure_file("flPlug.dox.in" ${doxyfile})
 	configure_file(rundoxy.in ${doxyrun})
 	
 	if(UNIX OR APPLE)
 		execute_process(COMMAND chmod +x ${doxyrun})
 	endif()
-	add_custom_target(${pTarget}
+	add_custom_target(docs
 							ALL
 							COMMENT "Generando docs..."
 							COMMAND ${doxyrun}
 							VERBATIM)
 
 	 if(UNIX)
-		install(DIRECTORY ${html_out} DESTINATION "share/doc/fl_plug" USE_SOURCE_PERMISSIONS)
+		install(DIRECTORY ${html_out} DESTINATION "share/doc/flPlug" USE_SOURCE_PERMISSIONS)
 	endif()
 endif()
