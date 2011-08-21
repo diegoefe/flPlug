@@ -1,4 +1,6 @@
 # doxygen stuff
+install(FILES license.txt DESTINATION doc)
+
 find_program(DOXYGEN doxygen PATHS "c:/Archivos de programa/doxygen" PATH_SUFFIXES bin)
 if(NOT DOXYGEN STREQUAL DOXYGEN-NOTFOUND)
 	if(UNIX)
@@ -55,7 +57,9 @@ if(NOT DOXYGEN STREQUAL DOXYGEN-NOTFOUND)
 							COMMAND ${doxyrun}
 							VERBATIM)
 
-	 if(UNIX)
+	if(UNIX OR ${chm_file} STREQUAL "")
 		install(DIRECTORY ${html_out} DESTINATION "share/doc/flPlug" USE_SOURCE_PERMISSIONS)
+	else()
+		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${chm_file} DESTINATION doc)
 	endif()
 endif()

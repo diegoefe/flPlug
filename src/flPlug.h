@@ -1,5 +1,5 @@
-#ifndef QRYLGUI_GUI_CBP_H_INCLUIDO
-#define QRYLGUI_GUI_CBP_H_INCLUIDO
+#ifndef FLPLUG_FLPLUG_H_INCLUDED
+#define FLPLUG_FLPLUG_H_INCLUDED
 
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Menu_Item.H>
