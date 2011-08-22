@@ -2,4 +2,3 @@
 - Upgrade gpl version to 3
 - Eliminar la consola en windows (subsystem:windows)
 - Crear mejores tests
-

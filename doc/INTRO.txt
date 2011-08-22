@@ -1,0 +1,26 @@
+/*!
+	@mainpage
+	@author @include AUTHORS.txt
+	@date 2011
+	
+	@section links Sections
+		@li For a description click @ref description "here"
+		@li For info on how to use it click @ref howto "here"
+		@li To know about the license terms click @ref license "here"
+		
+	@page howto How to use
+		@section use Use
+			@li Include flPlug.h
+			@li Uni* (Linux, FreeBSD): link to it: -L/path/to/lib/directory -lflPlug
+			@li Windows (9x, 2000, XP): include /path/to/flPlug.lib y link
+			@li Here's some sample code:
+				@include simple.cpp
+	
+ 
+	@page description Description
+		@include TEXTOS.txt
+
+	@page license License
+		@htmlinclude COPYING.htm
+
+ */
