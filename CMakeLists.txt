@@ -82,6 +82,6 @@ set(CPACK_COMPONENT_DOCUMENTS_DESCRIPTION "Documentation for ${PROJECT_NAME}")
 set(CPACK_COMPONENT_HEADERS_DEPENDS libraries)
 set(CPACK_COMPONENT_LIBRARIES_DEPENDS headers)
 set(CPACK_COMPONENT_EXAMPLES_DEPENDS libraries headers)
-set(CPACK_SOURCE_IGNORE_FILES ".git*" "mkTar" "doc/TODO.txt")
+set(CPACK_SOURCE_IGNORE_FILES ".git*" "mkTar" "doc/TODO.txt" "doc/SITE.txt")
 include(CPack)
 

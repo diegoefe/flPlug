@@ -5,13 +5,23 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Button.H>
+#include <FL/Fl_Menu_Bar.H>
+#include "editor.h"
+#include <FL/Fl_Box.H>
 
 class Basic_UI {
 protected:
   Basic_UI();
   Fl_Double_Window *win_;
   Fl_Button *push_;
+  static Fl_Menu_Item menu_[];
 public:
+  static Fl_Menu_Item *file_open_;
+  static Fl_Menu_Item *file_exit_;
+protected:
+  Editor *edit_;
+public:
+  Fl_Box *status_;
   virtual ~Basic_UI();
 };
 #endif

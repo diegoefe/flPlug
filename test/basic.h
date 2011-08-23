@@ -13,6 +13,9 @@ public:
 	~BasicWin();
 	void show() { win_->show(); }
 private:
+	void file_open();
+	void file_exit();
+	void edit(int _pos, int _nInserted, int _nDeleted, int _nRestyled, const char* _deletedText);
 	void push();
 };
 

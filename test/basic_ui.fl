@@ -8,11 +8,36 @@ class Basic_UI {open
   } {
     Fl_Window win_ {
       label {Basic test} open
-      protected xywh {483 191 285 262} type Double box PLASTIC_UP_BOX resizable modal size_range {280 157 0 0} visible
+      protected xywh {326 236 551 274} type Double box PLASTIC_UP_BOX resizable modal size_range {280 157 0 0} visible
     } {
       Fl_Button push_ {
-        label {Push me!} selected
-        protected xywh {15 20 130 30}
+        label {Push me!}
+        protected xywh {445 225 100 25}
+      }
+      Fl_Menu_Bar {} {open
+        xywh {0 0 551 20}
+      } {
+        Submenu {} {
+          label {&File} open
+          xywh {0 0 62 20}
+        } {
+          MenuItem file_open_ {
+            label {&Open}
+            xywh {0 0 30 20}
+          }
+          MenuItem file_exit_ {
+            label {&Exit}
+            xywh {20 20 30 20}
+          }
+        }
+      }
+      Fl_Text_Editor edit_ {selected
+        protected xywh {10 25 535 190} when 6
+        code0 {\#include "editor.h"}
+        class Editor
+      }
+      Fl_Box status_ {
+        xywh {4 250 541 17} box GTK_THIN_DOWN_FRAME align 20
       }
     }
   }

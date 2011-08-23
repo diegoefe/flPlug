@@ -2,12 +2,40 @@
 
 #include "basic_ui.h"
 
+Fl_Menu_Item Basic_UI::menu_[] = {
+ {"&File", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {"&Open", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"&Exit", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+ {0,0,0,0,0,0,0,0,0}
+};
+Fl_Menu_Item* Basic_UI::file_open_ = Basic_UI::menu_ + 1;
+Fl_Menu_Item* Basic_UI::file_exit_ = Basic_UI::menu_ + 2;
+
 Basic_UI::Basic_UI() {
-  { win_ = new Fl_Double_Window(285, 262, "Basic test");
+  { win_ = new Fl_Double_Window(551, 274, "Basic test");
     win_->box(FL_PLASTIC_UP_BOX);
     win_->user_data((void*)(this));
-    { push_ = new Fl_Button(15, 20, 130, 30, "Push me!");
+    { push_ = new Fl_Button(445, 225, 100, 25, "Push me!");
     } // Fl_Button* push_
+    { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 551, 20);
+      o->menu(menu_);
+    } // Fl_Menu_Bar* o
+    { edit_ = new Editor(10, 25, 535, 190);
+      edit_->box(FL_DOWN_FRAME);
+      edit_->color(FL_BACKGROUND2_COLOR);
+      edit_->selection_color(FL_SELECTION_COLOR);
+      edit_->labeltype(FL_NORMAL_LABEL);
+      edit_->labelfont(0);
+      edit_->labelsize(14);
+      edit_->labelcolor(FL_FOREGROUND_COLOR);
+      edit_->align(Fl_Align(FL_ALIGN_TOP));
+      edit_->when(FL_WHEN_RELEASE_ALWAYS);
+    } // Editor* edit_
+    { status_ = new Fl_Box(4, 250, 541, 17);
+      status_->box(FL_GTK_THIN_DOWN_FRAME);
+      status_->align(Fl_Align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE));
+    } // Fl_Box* status_
     win_->set_modal();
     win_->size_range(280, 157);
     win_->end();
