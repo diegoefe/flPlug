@@ -1,3 +1,11 @@
 I'll apreciate your comments and/or contributions,
 
 You can download fltk at (http://www.fltk.org "this link")
+
+
+Freshmeat / fltk.org
+flPlug is a library whose purpose is to bring a type-safe interface for
+the event callback system of the Fast Light ToolKit (FLTK) library.
+It provides callbacks that can be private member functions and a
+type-safe interface.
+It has been tested with FLTK versions 1.1.* and 1.3.*.
