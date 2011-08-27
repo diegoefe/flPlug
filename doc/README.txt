@@ -1,13 +1,10 @@
-This file is part of flPlug.
+flPlug is a library whose purpose is to provide a type-safe interface for the event callback system of the Fast Light ToolKit (FLTK) library.
 
-flPlug is free software: you can redistribute it and/or modify
-it under the terms of the GGNU Lesser General Public License as
-published by the Free Software Foundation.
+The FLTK's callback system is a powerful mechanism but suffers for some
+comfortless features that flPlug tries to easy:
+- The callbacks have to be global functions, not object member functions
+- The interface for callbacks is not type-safe (you have to cast the parameters
+	to/from void* to use external data)
 
-flPlug is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public License
-along with flPlug.  If not, see <http://www.gnu.org/licenses/>.
+flPlug has been tested with FLTK versions 1.1.* and 1.3.*.

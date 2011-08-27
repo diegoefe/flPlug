@@ -18,9 +18,9 @@
 	
  
 	@page description Description
-		@include TEXTOS.txt
+		@include README.txt
 
 	@page license License
-		@htmlinclude COPYING.htm
+		@htmlinclude LICENSE.htm
 
  */

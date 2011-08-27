@@ -4,7 +4,7 @@ if(UNIX OR APPLE)
 else()
 	set(FLP_DOC_DIR doc)
 endif()
-install(FILES COPYING.txt DESTINATION ${FLP_DOC_DIR})
+install(FILES LICENSE.txt DESTINATION ${FLP_DOC_DIR})
 
 find_program(DOXYGEN doxygen PATHS "c:/Archivos de programa/doxygen" PATH_SUFFIXES bin)
 if(NOT DOXYGEN STREQUAL DOXYGEN-NOTFOUND)
