@@ -1,0 +1,12 @@
+This is the flPlug Wiki!
+
+flPlug is a library whose purpose is to provide a type-safe interface for the
+event callback system of the Fast Light ToolKit (FLTK) library.
+
+For an example of code usage click [here](http://sourceforge.net/p/flplug/home/Usage/ "Sample code")
+
+Please send us your comments!
+
+Diego F.
+
+To download the last release, click here: [[download_button]]
