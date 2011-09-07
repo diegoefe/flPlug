@@ -5,7 +5,7 @@ set(FLP_AUTOR "Diego Florio")
 set(FLP_DESCRIPTION "Type-safe FLTK callback adapter library")
 set(FLP_MAJOR 0)
 set(FLP_MINOR 1)
-set(FLP_RELEASE 2)
+set(FLP_RELEASE 3)
 
 set(CMAKE_BUILD_TYPE Release CACHE TYPE INTERNAL FORCE)
 

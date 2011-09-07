@@ -1,1 +1,2 @@
-- Eliminar la consola en windows (subsystem:windows)
+- Mejorar el soporte de parámetros en los callbacks (más específicos)
+- Probar en MacOS
