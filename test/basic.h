@@ -17,6 +17,9 @@ private:
 	void file_exit();
 	void edit(int _pos, int _nInserted, int _nDeleted, int _nRestyled, const char* _deletedText);
 	void push();
+	void optate(Fl_Round_Button& _rb);
+
+	void msg(const char*);
 };
 
 #endif

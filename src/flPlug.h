@@ -35,6 +35,18 @@ public:
 	virtual void run()=0;
 };
 
+/*! @brief Base slot for simple callback */
+template<typename WT>
+class SimpleSlotParam : public Slot {
+public:
+	/*! @brief Bind the callback to the widget */
+	static void bind(Fl_Widget* _w, void* _arg) {
+		static_cast<SimpleSlotParam*>(_arg)->run(*static_cast<WT*>(_w));
+	}
+	/*! @brief Execute the callback */
+	virtual void run(WT&)=0;
+};
+
 /*! @brief Base slot for Fl_Text_Buffer callbacks */
 class TextBufferSlot : public Slot {
 public:
@@ -59,6 +71,42 @@ public:
 	WidgetSlot(C& _cont, Fl_Menu_Item* _m, widgetMet _met) : cont_(_cont), met_(_met)
 	{
 		_m->callback(SimpleSlot::bind, this);
+	}
+	/*! @brief Execute the callback */
+	void run() { (cont_.*met_)(); }
+private:
+	C& cont_;
+	widgetMet met_;
+};
+
+/*! @brief SlotParam for simple Fl_Widget's */
+template<class C, typename WT>
+class WidgetSlotParam : public SimpleSlotParam<WT> {
+public:
+	/*! @brief PMF typedef */
+	typedef void (C::*widgetMet)(WT&);
+	/*! @brief Create and connect for Fl_Widget derived ones */
+	WidgetSlotParam(C& _cont, WT* _w, widgetMet _met) : cont_(_cont), met_(_met)
+	{
+		_w->callback(SimpleSlotParam<WT>::bind, this);
+	}
+	/*! @brief Execute the callback */
+	void run(WT& _wt) { (cont_.*met_)(_wt); }
+private:
+	C& cont_;
+	widgetMet met_;
+};
+
+/*! @brief SlotParam for simple Fl_Widget's */
+template<class C, typename WT>
+class WidgetSlotVoid : public SimpleSlot {
+public:
+	/*! @brief PMF typedef */
+	typedef void (C::*widgetMet)();
+	/*! @brief Create and connect for Fl_Widget derived ones */
+	WidgetSlotVoid(C& _cont, WT* _w, widgetMet _met) : cont_(_cont), met_(_met)
+	{
+		_w->callback(SimpleSlot::bind, this);
 	}
 	/*! @brief Execute the callback */
 	void run() { (cont_.*met_)(); }
@@ -109,17 +157,30 @@ public:
 	/*! @brief Virtual destructor */
 	virtual ~Plugger() {}
 	/*! @brief Plug Fl_Widget* */
-	void plug(Fl_Widget* _w, typename WidgetSlot<Owner>::widgetMet _me) {
-		pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
-	}
+	//void plug(Fl_Widget* _w, typename WidgetSlot<Owner>::widgetMet _me) {
+	//	pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
+	//}
 	/*! @brief Plug Fl_Menu_Item* */
-	void plug(Fl_Menu_Item* _w, typename WidgetSlot<Owner>::widgetMet _me) {
-		pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
-	}
+	//void plug(Fl_Menu_Item* _w, typename WidgetSlot<Owner>::widgetMet _me) {
+	//	pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
+	//}
 	/*! @brief Plug Fl_Text_Buffer* */
-	void plug(Fl_Text_Buffer* _t, typename BufferSlot<Owner>::bufferMet _me) {
-		pgs_.add(new BufferSlot<Owner>(static_cast<Owner&>(*this), _t, _me));
+	//void plug(Fl_Text_Buffer* _t, typename BufferSlot<Owner>::bufferMet _me) {
+	//	pgs_.add(new BufferSlot<Owner>(static_cast<Owner&>(*this), _t, _me));
+	//}
+	/*! @brief Plug any Fl_Widget to member function  */
+	template<typename WT>
+	void plug(WT* _w, typename WidgetSlotParam<Owner,WT>::widgetMet _me) {
+		pgs_.add(new WidgetSlotParam<Owner,WT>(static_cast<Owner&>(*this), _w, _me));
 	}
+	//template<typename WT>
+	//void plug(WT* _w, typename WidgetSlotVoid<Owner, WT>::widgetMet _me) {
+	//	pgs_.add(new WidgetSlotVoid<Owner, WT>(static_cast<Owner&>(*this), _w, _me));
+	//}
+	/*! @brief Plug Fl_Text_Buffer* */
+	//void plug(Fl_Text_Buffer* _t, typename BufferSlot<Owner>::bufferMet _me) {
+	//	pgs_.add(new BufferSlot<Owner>(static_cast<Owner&>(*this), _t, _me));
+	//}
 };
 
 } // fl

@@ -16,8 +16,6 @@ Basic_UI::Basic_UI() {
   { win_ = new Fl_Double_Window(551, 274, "Basic test");
     win_->box(FL_PLASTIC_UP_BOX);
     win_->user_data((void*)(this));
-    { push_ = new Fl_Button(445, 225, 100, 25, "Push me!");
-    } // Fl_Button* push_
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 551, 20);
       o->menu(menu_);
     } // Fl_Menu_Bar* o
@@ -32,6 +30,23 @@ Basic_UI::Basic_UI() {
       edit_->align(Fl_Align(FL_ALIGN_TOP));
       edit_->when(FL_WHEN_RELEASE_ALWAYS);
     } // Editor* edit_
+    { Fl_Group* o = new Fl_Group(10, 220, 190, 25);
+      { op_red_ = new Fl_Round_Button(15, 225, 55, 15, "Red");
+        op_red_->type(102);
+        op_red_->down_box(FL_ROUND_DOWN_BOX);
+      } // Fl_Round_Button* op_red_
+      { op_blue_ = new Fl_Round_Button(75, 225, 55, 15, "Blue");
+        op_blue_->type(102);
+        op_blue_->down_box(FL_ROUND_DOWN_BOX);
+      } // Fl_Round_Button* op_blue_
+      { op_green_ = new Fl_Round_Button(135, 225, 65, 15, "Green");
+        op_green_->type(102);
+        op_green_->down_box(FL_ROUND_DOWN_BOX);
+      } // Fl_Round_Button* op_green_
+      o->end();
+    } // Fl_Group* o
+    { push_ = new Fl_Button(445, 220, 100, 25, "Push me!");
+    } // Fl_Button* push_
     { status_ = new Fl_Box(4, 250, 541, 17);
       status_->box(FL_GTK_THIN_DOWN_FRAME);
       status_->align(Fl_Align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE));
