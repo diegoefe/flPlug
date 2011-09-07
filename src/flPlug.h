@@ -35,6 +35,15 @@ public:
 	virtual void run()=0;
 };
 
+/*! @brief Base slot for callback that receives the widget */
+class ParamSlot : public Slot {
+public:
+	/*! @brief Bind the callback to the widget */
+	static void bind(Fl_Widget* _w, void* _arg);
+	/*! @brief Execute the callback */
+	virtual void run(Fl_Widget*)=0;
+};
+
 /*! @brief Base slot for Fl_Text_Buffer callbacks */
 class TextBufferSlot : public Slot {
 public:
@@ -44,11 +53,11 @@ public:
 	virtual void run(int _pos, int _nInserted, int _nDeleted, int _nRestyled, const char* _deletedText)=0;
 };
 
-/*! @brief Slot for simple Fl_Widget's */
+/*! @brief Slot for void method */
 template<class C>
 class WidgetSlot : public SimpleSlot {
 public:
-	/*! @brief PMF typedef */
+	/*! @brief PMF a simple method */
 	typedef void (C::*widgetMet)();
 	/*! @brief Create and connect for Fl_Widget derived ones */
 	WidgetSlot(C& _cont, Fl_Widget* _w, widgetMet _met) : cont_(_cont), met_(_met)
@@ -67,7 +76,30 @@ private:
 	widgetMet met_;
 };
 
-/*! @brief Slot for simple Fl_Text_Buffer's */
+/*! @brief Slot for method that receives a Fl_Widget */
+template<class C>
+class WidgetParamSlot : public ParamSlot {
+public:
+	/*! @brief PMF a simple method */
+	typedef void (C::*widgetMet)(Fl_Widget*);
+	/*! @brief Create and connect for Fl_Widget derived ones */
+	WidgetParamSlot(C& _cont, Fl_Widget* _w, widgetMet _met) : cont_(_cont), met_(_met)
+	{
+		_w->callback(ParamSlot::bind, this);
+	}
+	/*! @brief Create and connect for Fl_Menu_ derived ones */
+	WidgetParamSlot(C& _cont, Fl_Menu_Item* _m, widgetMet _met) : cont_(_cont), met_(_met)
+	{
+		_m->callback(ParamSlot::bind, this);
+	}
+	/*! @brief Execute the callback */
+	void run(Fl_Widget* _w) { (cont_.*met_)(_w); }
+private:
+	C& cont_;
+	widgetMet met_;
+};
+
+/*! @brief Slot for Fl_Text_Buffer's callback */
 template<class C>
 class BufferSlot : public TextBufferSlot {
 public:
@@ -104,17 +136,20 @@ template<typename Owner>
 class Plugger {
 	SlotList pgs_;
 public:
-	/*! @brief Default contructor */
 	Plugger() {}
 	/*! @brief Virtual destructor */
 	virtual ~Plugger() {}
-	/*! @brief Plug Fl_Widget* */
+	/*! @brief Plug to a member function without parameters */
 	void plug(Fl_Widget* _w, typename WidgetSlot<Owner>::widgetMet _me) {
 		pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
 	}
 	/*! @brief Plug Fl_Menu_Item* */
 	void plug(Fl_Menu_Item* _w, typename WidgetSlot<Owner>::widgetMet _me) {
 		pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
+	}
+	/*! @brief Plug to a member function that receives a Fl_Widget* */
+	void plug(Fl_Widget* _w, typename WidgetParamSlot<Owner>::widgetMet _me) {
+		pgs_.add(new WidgetParamSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
 	}
 	/*! @brief Plug Fl_Text_Buffer* */
 	void plug(Fl_Text_Buffer* _t, typename BufferSlot<Owner>::bufferMet _me) {

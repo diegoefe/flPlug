@@ -11,12 +11,16 @@ BasicWin::BasicWin() {
 	// we can also plug buttons
 	plug(push_, &BasicWin::push);
 
+	plug(op_red_, &BasicWin::optate);
+	plug(op_green_, &BasicWin::optate);
+	plug(op_blue_, &BasicWin::optate);
+
 	edit_->take_focus();
 }
 
 BasicWin::~BasicWin() {}
 
-void BasicWin::file_open() { fl_alert("File open!!!"); }
+void BasicWin::file_open() { msg("File open!!!"); }
 void BasicWin::file_exit() { win_->hide(); }
 void BasicWin::edit(int _pos, int _nInserted, int _nDeleted, int _nRestyled, const char* _deletedText)
 {
@@ -26,8 +30,18 @@ void BasicWin::edit(int _pos, int _nInserted, int _nDeleted, int _nRestyled, con
 	o << " del(" << _nDeleted << ")";
 	o << " sty(" << _nRestyled << ")";
 	o << " del-text(" << (_deletedText ? _deletedText : "NULL") << ")";
-	status_->copy_label(o.str().c_str());
-	win_->redraw();
+	msg(o.str().c_str());
 }
 
 void BasicWin::push() {	fl_alert("Pushed!!!"); }
+
+void BasicWin::optate(Fl_Widget* _w) {
+	std::ostringstream o;
+	o << "Option " << _w->label() << " selected";
+	msg(o.str().c_str());
+}
+
+void BasicWin::msg(const char* _m) {
+	status_->copy_label(_m);
+	win_->redraw();
+}
