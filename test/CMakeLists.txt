@@ -15,7 +15,8 @@ target_link_libraries(basic flPlug ${FLTK_LIBRARIES})
 add_executable(simple simple.cpp)
 target_link_libraries(simple flPlug ${FLTK_LIBRARIES})
 
-
-file(GLOB hdrs "*.h")
-file(GLOB srcs "*.cpp")
-install(FILES ${hdrs} ${srcs} COMPONENT examples DESTINATION examples)
+if(INSTALL_EXAMPLES)
+	file(GLOB hdrs "*.h")
+	file(GLOB srcs "*.cpp")
+	install(FILES ${hdrs} ${srcs} COMPONENT examples DESTINATION examples)
+endif()

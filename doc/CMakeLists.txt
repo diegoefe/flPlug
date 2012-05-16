@@ -62,10 +62,12 @@ if(NOT DOXYGEN STREQUAL DOXYGEN-NOTFOUND)
 							COMMAND ${doxyrun}
 							VERBATIM)
 
-	if(UNIX OR NOT chm_file)
-		install(DIRECTORY ${html_out} DESTINATION ${FLP_DOC_DIR} USE_SOURCE_PERMISSIONS COMPONENT documents)
-	else()
-		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${chm_file} DESTINATION ${FLP_DOC_DIR} COMPONENT documents)
+	if(INSTALL_DOCS)
+		if(UNIX OR NOT chm_file)
+			install(DIRECTORY ${html_out} DESTINATION ${FLP_DOC_DIR} USE_SOURCE_PERMISSIONS COMPONENT documents)
+		else()
+			install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${chm_file} DESTINATION ${FLP_DOC_DIR} COMPONENT documents)
+		endif()
 	endif()
 endif()
 

@@ -45,3 +45,4 @@ void BasicWin::msg(const char* _m) {
 	status_->copy_label(_m);
 	win_->redraw();
 }
+

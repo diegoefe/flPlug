@@ -9,6 +9,13 @@ set(FLP_RELEASE 3)
 
 set(CMAKE_BUILD_TYPE Release CACHE TYPE INTERNAL FORCE)
 
+option(INSTALL_DOCS "Install documentation" ON)
+option(INSTALL_EXAMPLES "Install example programs" OFF)
+
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND UNIX)
+	set(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "install prefix" FORCE)
+endif()
+
 if(WIN32)
 	string(SUBSTRING ${PROJECT_SOURCE_DIR} 0 2 CURRENT_DISC)
 	set(BASE ${CURRENT_DISC}/devel)

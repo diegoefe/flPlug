@@ -5,7 +5,12 @@ declare -a C
 C[${#C[*]}]="git gc"
 C[${#C[*]}]="git fsck --full"
 C[${#C[*]}]="cd .."
-C[${#C[*]}]="tar cvfW ${tf} ${aca}"
+if [ `hostname` = "Driven.local" ]
+then
+	C[${#C[*]}]="tar -c -v -f ${tf} --exclude '*.swp' ${aca}"
+else
+	C[${#C[*]}]="tar -c -v -W -f ${tf} --exclude '*.swp' ${aca}"
+fi
 C[${#C[*]}]="bzip2 -zv9 ${tf}"
 C[${#C[*]}]="bzip2 -t ${tf}.bz2"
 C[${#C[*]}]="cd \"${aca}\""
