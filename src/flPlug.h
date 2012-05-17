@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2011 by Diego Florio
+ * Copyright (C) 2011-2012 by Diego Florio
  *
  * Permission to use, copy, modify, and distribute this software and its
  * documentation under the terms of the GNU Lesser General Public License is
@@ -136,6 +136,7 @@ template<typename Owner>
 class Plugger {
 	SlotList pgs_;
 public:
+	/*! @brief Default constructor */
 	Plugger() {}
 	/*! @brief Virtual destructor */
 	virtual ~Plugger() {}
