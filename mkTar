@@ -11,8 +11,12 @@ then
 else
 	C[${#C[*]}]="tar -c -v -W -f ${tf} --exclude '*.swp' ${aca}"
 fi
-C[${#C[*]}]="bzip2 -zv9 ${tf}"
-C[${#C[*]}]="bzip2 -t ${tf}.bz2"
+
+# C[${#C[*]}]="bzip2 -zv9 ${tf}"
+# C[${#C[*]}]="bzip2 -t ${tf}.bz2"
+
+C[${#C[*]}]="xz -z -e ${tf}"
+
 C[${#C[*]}]="cd \"${aca}\""
 
 for i in $(seq 0 $((${#C[@]} - 1)))
