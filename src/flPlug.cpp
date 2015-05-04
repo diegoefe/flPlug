@@ -1,4 +1,6 @@
 #include "flPlug.h"
+#include <algorithm>
+#include <iostream>
 
 namespace fl {
 
@@ -22,8 +24,20 @@ SlotList::~SlotList() {
 	}
 }
 
-void SlotList::add(Slot* _p) {
-	push_back(_p);
+Slot* SlotList::add(Slot* _slot) {
+	push_back(_slot);
+	return back();
+}
+
+namespace { void dummyCallback(Fl_Widget*, void*) { } }
+
+void SlotList::remove(Slot* _slot, Fl_Widget* _widget) {
+	SlotList::iterator s=find(begin(), end(), _slot);
+	if(s != end()) {
+		erase(s);
+		delete _slot;
+		_widget->callback(dummyCallback);
+	}
 }
 
 } // fl

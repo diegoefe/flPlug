@@ -9,7 +9,8 @@ BasicWin::BasicWin() {
 	// we can also plug text buffer
 	plug(edit_->buffer(), &BasicWin::edit);
 	// we can also plug buttons
-	plug(push_, &BasicWin::push);
+	push_slot_=plug(push_, &BasicWin::push);
+	plug(push_toggle_, &BasicWin::push_toggle);
 
 	plug(op_red_, &BasicWin::optate);
 	plug(op_green_, &BasicWin::optate);
@@ -34,6 +35,18 @@ void BasicWin::edit(int _pos, int _nInserted, int _nDeleted, int _nRestyled, con
 }
 
 void BasicWin::push() {	fl_alert("Pushed!!!"); }
+void BasicWin::push_toggle() {
+	if(push_toggle_->value()) {
+		push_slot_=plug(push_, &BasicWin::push);
+		push_toggle_->copy_label("Disable ->");
+		msg("Enabling button");
+	}
+	else {
+		unplug(push_slot_, push_);
+		push_toggle_->copy_label("Enable ->");
+		msg("Disabling button");
+	}
+}
 
 void BasicWin::optate(Fl_Widget* _w) {
 	std::ostringstream o;

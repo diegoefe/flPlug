@@ -125,7 +125,9 @@ public:
 	SlotList() : std::list<Slot*>() {}
 	~SlotList();
 	/*! @brief Add a slot */
-	void add(Slot* _p);
+	Slot* add(Slot* _slot);
+	/*! @brief Remove a slot */
+	void remove(Slot* _slot, Fl_Widget* _widget);
 };
 
 /*!
@@ -141,20 +143,24 @@ public:
 	/*! @brief Virtual destructor */
 	virtual ~Plugger() {}
 	/*! @brief Plug to a member function without parameters */
-	void plug(Fl_Widget* _w, typename WidgetSlot<Owner>::widgetMet _me) {
-		pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
+	Slot* plug(Fl_Widget* _w, typename WidgetSlot<Owner>::widgetMet _me) {
+		return pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
 	}
 	/*! @brief Plug Fl_Menu_Item* */
-	void plug(Fl_Menu_Item* _w, typename WidgetSlot<Owner>::widgetMet _me) {
-		pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
+	Slot* plug(Fl_Menu_Item* _w, typename WidgetSlot<Owner>::widgetMet _me) {
+		return pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
 	}
 	/*! @brief Plug to a member function that receives a Fl_Widget* */
-	void plug(Fl_Widget* _w, typename WidgetParamSlot<Owner>::widgetMet _me) {
-		pgs_.add(new WidgetParamSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
+	Slot* plug(Fl_Widget* _w, typename WidgetParamSlot<Owner>::widgetMet _me) {
+		return pgs_.add(new WidgetParamSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
 	}
 	/*! @brief Plug Fl_Text_Buffer* */
-	void plug(Fl_Text_Buffer* _t, typename BufferSlot<Owner>::bufferMet _me) {
-		pgs_.add(new BufferSlot<Owner>(static_cast<Owner&>(*this), _t, _me));
+	Slot* plug(Fl_Text_Buffer* _t, typename BufferSlot<Owner>::bufferMet _me) {
+		return pgs_.add(new BufferSlot<Owner>(static_cast<Owner&>(*this), _t, _me));
+	}
+	/*! @brief Unplug a widget */
+	void unplug(Slot* _slot, Fl_Widget* _widget) {
+		pgs_.remove(_slot, _widget);
 	}
 };
 
