@@ -1,3 +1,7 @@
+Version 0.2.0:
+	- New Plugger::unplug() method
+	- Documentation update
+
 Version 0.1.2:
 	- New support for callback to member functions with simple
 		Fl_Widget* parameters (good for callback reuse)
