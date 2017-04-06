@@ -10,12 +10,7 @@ set(FLP_RELEASE 0)
 set(CMAKE_BUILD_TYPE Release CACHE TYPE INTERNAL FORCE)
 
 option(INSTALL_DOCS "Install documentation" ON)
-if(WIN32)
-	set(ex ON)
-else()
-	set(ex OFF)
-endif()
-option(BUNDLE_EXAMPLES "Install/bundle example programs" ${ex})
+option(BUNDLE_EXAMPLES "Install/bundle example programs" ON)
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND UNIX)
 	set(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "install prefix" FORCE)
