@@ -68,4 +68,4 @@ Happy coding!
 
 
 ## License
-[LGPL](https://github.com/diegoefe/flPlug/doc/LICENSE.txt)
+[LGPL](doc/LICENSE.txt)
