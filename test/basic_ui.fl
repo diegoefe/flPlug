@@ -1,6 +1,6 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0303 
-header_name {.h} 
+version 1.0304
+header_name {.h}
 code_name {.cpp}
 class Basic_UI {open
 } {
@@ -35,7 +35,7 @@ class Basic_UI {open
       Fl_Box status_ {
         xywh {4 250 541 17} box GTK_THIN_DOWN_FRAME align 20
       }
-      Fl_Group {} {open
+      Fl_Group {} {open selected
         xywh {10 220 180 25} box PLASTIC_DOWN_FRAME
       } {
         Fl_Round_Button op_red_ {
@@ -52,12 +52,12 @@ class Basic_UI {open
         }
       }
       Fl_Light_Button push_toggle_ {
-        label {Disable ->} selected
-        protected xywh {345 221 89 25} value 1 selection_color 97
+        label {Disable ->}
+        protected xywh {358 221 90 25} value 1 selection_color 97
       }
       Fl_Button push_ {
         label {Push me!}
-        protected xywh {445 221 100 25}
+        protected xywh {455 221 89 25}
       }
     }
   }
@@ -65,4 +65,4 @@ class Basic_UI {open
   } {
     code {delete win_;} {}
   }
-} 
+}

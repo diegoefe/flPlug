@@ -1,9 +1,9 @@
 function(setFluid pName)
-	if(NOT FLUID STREQUAL FLUID-NOTFOUND)
+	if(NOT FLTK_FLUID_EXECUTABLE STREQUAL FLTK_FLUID_EXECUTABLE-NOTFOUND)
 		add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${pName}.cpp
 								 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-								 COMMENT "Running '${FLUID}' on ${pName}.fl..."
-								 COMMAND ${FLUID} -c ${pName}.fl
+								 COMMENT "Running '${FLTK_FLUID_EXECUTABLE}' on ${pName}.fl..."
+								 COMMAND ${FLTK_FLUID_EXECUTABLE} -c ${pName}.fl
 								 DEPENDS ${pName}.fl)
 	endif()
 endfunction()
