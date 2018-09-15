@@ -5,12 +5,14 @@
 Fl_Menu_Item Basic_UI::menu_[] = {
  {"&File", 0,  0, 0, 64, (uchar)FL_NORMAL_LABEL, 0, 14, 0},
  {"&Open", 0,  0, 0, 0, (uchar)FL_NORMAL_LABEL, 0, 14, 0},
+ {"&Debug", 0,  0, 0, 6, (uchar)FL_NORMAL_LABEL, 0, 14, 0},
  {"&Exit", 0,  0, 0, 0, (uchar)FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {0,0,0,0,0,0,0,0,0}
 };
 Fl_Menu_Item* Basic_UI::file_open_ = Basic_UI::menu_ + 1;
-Fl_Menu_Item* Basic_UI::file_exit_ = Basic_UI::menu_ + 2;
+Fl_Menu_Item* Basic_UI::file_debug_ = Basic_UI::menu_ + 2;
+Fl_Menu_Item* Basic_UI::file_exit_ = Basic_UI::menu_ + 3;
 
 Basic_UI::Basic_UI() {
   { win_ = new Fl_Double_Window(550, 270, "Basic test");

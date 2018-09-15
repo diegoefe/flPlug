@@ -4,12 +4,11 @@
 
 namespace fl {
 
-void SimpleSlot::bind(Fl_Widget*, void* _arg) {
-	static_cast<SimpleSlot*>(_arg)->run();
-}
-
-void ParamSlot::bind(Fl_Widget* _w, void* _arg) {
-	static_cast<ParamSlot*>(_arg)->run(_w);
+void SimpleSlot::bind(Fl_Widget*, void* _arg) {	static_cast<SimpleSlot*>(_arg)->run();}
+void ParamSlot::bind(Fl_Widget* _w, void* _arg) { static_cast<ParamSlot*>(_arg)->run(_w); }
+void MenuParamSlot::bind(Fl_Widget* _mi, void* _arg) {
+   MenuParamSlot* mps = static_cast<MenuParamSlot*>(_arg);
+   mps->run(mps->mi_);
 }
 
 void TextBufferSlot::bind(int _pos, int _nInserted, int _nDeleted, int _nRestyled, const char* _deletedText, void* _cbArg) {

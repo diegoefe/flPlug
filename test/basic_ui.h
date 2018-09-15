@@ -19,6 +19,9 @@ protected:
   static Fl_Menu_Item menu_[];
 public:
   static Fl_Menu_Item *file_open_;
+protected:
+  static Fl_Menu_Item *file_debug_;
+public:
   static Fl_Menu_Item *file_exit_;
 protected:
   Editor *edit_;

@@ -5,6 +5,7 @@
 BasicWin::BasicWin() {
 	// we can plug menu items
 	plug(file_open_, &BasicWin::file_open);
+	plug(file_debug_, &BasicWin::file_debug);
 	plug(file_exit_, &BasicWin::file_exit);
 	// we can also plug text buffer
 	plug(edit_->buffer(), &BasicWin::edit);
@@ -22,6 +23,11 @@ BasicWin::BasicWin() {
 BasicWin::~BasicWin() {}
 
 void BasicWin::file_open() { msg("File open!!!"); }
+void BasicWin::file_debug(Fl_Menu_Item* _mi) {
+   std::ostringstream o;
+	o << "File debug is " << (_mi->checked() ? "checked" : "not checked");
+	msg(o.str().c_str());
+}
 void BasicWin::file_exit() { win_->hide(); }
 void BasicWin::edit(int _pos, int _nInserted, int _nDeleted, int _nRestyled, const char* _deletedText)
 {

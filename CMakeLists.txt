@@ -4,7 +4,7 @@ project(flPlug)
 set(FLP_AUTHOR "Diego Florio")
 set(FLP_DESCRIPTION "Type-safe FLTK callback adapter library")
 set(FLP_MAJOR 0)
-set(FLP_MINOR 2)
+set(FLP_MINOR 3)
 set(FLP_RELEASE 0)
 
 set(CMAKE_BUILD_TYPE Release CACHE TYPE INTERNAL FORCE)

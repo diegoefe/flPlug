@@ -28,27 +28,42 @@ public:
 
 /*! @brief Base slot for simple callback */
 class SimpleSlot : public Slot {
-public:
+protected:
 	/*! @brief Bind the callback to the widget */
 	static void bind(Fl_Widget* _w, void* _arg);
+public:
 	/*! @brief Execute the callback */
 	virtual void run()=0;
 };
 
 /*! @brief Base slot for callback that receives the widget */
 class ParamSlot : public Slot {
-public:
+protected:
 	/*! @brief Bind the callback to the widget */
 	static void bind(Fl_Widget* _w, void* _arg);
+public:
 	/*! @brief Execute the callback */
 	virtual void run(Fl_Widget*)=0;
 };
 
+/*! @brief Base slot for callback that receives the MenuItem */
+class MenuParamSlot : public Slot {
+   Fl_Menu_Item* mi_;
+protected:
+   MenuParamSlot(Fl_Menu_Item* _mi) : mi_(_mi) {}
+	/*! @brief Bind the callback to the widget */
+	static void bind(Fl_Widget* _w, void* _arg);
+public:
+	/*! @brief Execute the callback */
+	virtual void run(Fl_Menu_Item*)=0;
+};
+
 /*! @brief Base slot for Fl_Text_Buffer callbacks */
 class TextBufferSlot : public Slot {
-public:
+protected:
 	/*! @brief Bind the callback to the widget */
 	static void bind(int _pos, int _nInserted, int _nDeleted, int _nRestyled, const char* _deletedText, void* _cbArg);
+public:
 	/*! @brief Execute the callback */
 	virtual void run(int _pos, int _nInserted, int _nDeleted, int _nRestyled, const char* _deletedText)=0;
 };
@@ -60,15 +75,11 @@ public:
 	/*! @brief PMF a simple method */
 	typedef void (C::*widgetMet)();
 	/*! @brief Create and connect for Fl_Widget derived ones */
-	WidgetSlot(C& _cont, Fl_Widget* _w, widgetMet _met) : cont_(_cont), met_(_met)
-	{
-		_w->callback(SimpleSlot::bind, this);
-	}
-	/*! @brief Create and connect for Fl_Menu_ derived ones */
-	WidgetSlot(C& _cont, Fl_Menu_Item* _m, widgetMet _met) : cont_(_cont), met_(_met)
-	{
-		_m->callback(SimpleSlot::bind, this);
-	}
+	WidgetSlot(C& _cont, Fl_Widget* _w, widgetMet _met)
+      : cont_(_cont), met_(_met) { _w->callback(bind, this); }
+   /*! @brief Create and connect for Fl_Menu_ derived ones */
+	WidgetSlot(C& _cont, Fl_Menu_Item* _m, widgetMet _met)
+      : cont_(_cont), met_(_met) { _m->callback(bind, this); }
 	/*! @brief Execute the callback */
 	void run() { (cont_.*met_)(); }
 private:
@@ -83,17 +94,26 @@ public:
 	/*! @brief PMF a simple method */
 	typedef void (C::*widgetMet)(Fl_Widget*);
 	/*! @brief Create and connect for Fl_Widget derived ones */
-	WidgetParamSlot(C& _cont, Fl_Widget* _w, widgetMet _met) : cont_(_cont), met_(_met)
-	{
-		_w->callback(ParamSlot::bind, this);
-	}
-	/*! @brief Create and connect for Fl_Menu_ derived ones */
-	WidgetParamSlot(C& _cont, Fl_Menu_Item* _m, widgetMet _met) : cont_(_cont), met_(_met)
-	{
-		_m->callback(ParamSlot::bind, this);
-	}
+	WidgetParamSlot(C& _cont, Fl_Widget* _w, widgetMet _met)
+      : cont_(_cont), met_(_met) { _w->callback(bind, this); }
 	/*! @brief Execute the callback */
 	void run(Fl_Widget* _w) { (cont_.*met_)(_w); }
+private:
+	C& cont_;
+	widgetMet met_;
+};
+
+/*! @brief Slot for method that receives a Fl_Menu_Item */
+template<class C>
+class MenuItemSlot : public MenuParamSlot {
+public:
+	/*! @brief PMF a simple method */
+	typedef void (C::*widgetMet)(Fl_Menu_Item*);
+	/*! @brief Create and connect for Fl_Menu_ derived ones */
+	MenuItemSlot(C& _cont, Fl_Menu_Item* _m, widgetMet _met)
+      : MenuParamSlot(_m), cont_(_cont), met_(_met) {	_m->callback(bind, this); }
+	/*! @brief Execute the callback */
+	void run(Fl_Menu_Item* _w) { (cont_.*met_)(_w); }
 private:
 	C& cont_;
 	widgetMet met_;
@@ -106,10 +126,8 @@ public:
 	/*! @brief PMF typedef */
 	typedef void (C::*bufferMet)(int, int, int, int, const char*);
 	/*! @brief Create and connect */
-	BufferSlot(C& _cont, Fl_Text_Buffer* _fb, bufferMet _met) : cont_(_cont), met_(_met)
-	{
-		_fb->add_modify_callback(TextBufferSlot::bind, this);
-	}
+	BufferSlot(C& _cont, Fl_Text_Buffer* _fb, bufferMet _met)
+      : cont_(_cont), met_(_met) { _fb->add_modify_callback(TextBufferSlot::bind, this); }
 	/*! @brief Execute the callback */
 	void run(int _pos, int _nInserted, int _nDeleted, int _nRestyled, const char* _deletedText) {
 		(cont_.*met_)(_pos, _nInserted, _nDeleted, _nRestyled, _deletedText);
@@ -150,6 +168,10 @@ public:
 	Slot* plug(Fl_Menu_Item* _w, typename WidgetSlot<Owner>::widgetMet _me) {
 		return pgs_.add(new WidgetSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
 	}
+   /*! @brief Plug Fl_Menu_Item* */
+	Slot* plug(Fl_Menu_Item* _w, typename MenuItemSlot<Owner>::widgetMet _me) {
+		return pgs_.add(new MenuItemSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
+	}
 	/*! @brief Plug to a member function that receives a Fl_Widget* */
 	Slot* plug(Fl_Widget* _w, typename WidgetParamSlot<Owner>::widgetMet _me) {
 		return pgs_.add(new WidgetParamSlot<Owner>(static_cast<Owner&>(*this), _w, _me));
@@ -167,4 +189,3 @@ public:
 } // fl
 
 #endif
-
