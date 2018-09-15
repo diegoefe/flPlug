@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2011-2012 by Diego Florio
+ * Copyright (C) 2011-2018 Diego Florio
  *
  * Permission to use, copy, modify, and distribute this software and its
  * documentation under the terms of the GNU Lesser General Public License is

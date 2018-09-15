@@ -6,7 +6,7 @@ namespace fl {
 
 void SimpleSlot::bind(Fl_Widget*, void* _arg) {	static_cast<SimpleSlot*>(_arg)->run();}
 void ParamSlot::bind(Fl_Widget* _w, void* _arg) { static_cast<ParamSlot*>(_arg)->run(_w); }
-void MenuParamSlot::bind(Fl_Widget* _mi, void* _arg) {
+void MenuParamSlot::bind(Fl_Widget*, void* _arg) {
    MenuParamSlot* mps = static_cast<MenuParamSlot*>(_arg);
    mps->run(mps->mi_);
 }
