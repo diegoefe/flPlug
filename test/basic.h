@@ -11,7 +11,10 @@ class BasicWin
 public:
 	BasicWin();
 	~BasicWin();
-	void show() { win_->show(); }
+	void show() {
+		win_->xclass("flPlug demo");
+		win_->show();
+	}
 private:
 	void file_open();
 	void file_debug(Fl_Menu_Item*);

@@ -34,6 +34,7 @@ public:
 			plug(g->child(i), &MyWin::optate);
 		}
 		end();
+		xclass("simple flPlug demo");
 	}
 private:
 	// calback can be private
