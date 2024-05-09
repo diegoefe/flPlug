@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 project(flPlug)
 
 set(FLP_AUTHOR "Diego Florio")
@@ -7,7 +7,17 @@ set(FLP_MAJOR 0)
 set(FLP_MINOR 3)
 set(FLP_RELEASE 0)
 
-set(CMAKE_BUILD_TYPE Release CACHE TYPE INTERNAL FORCE)
+set(default_build_type "Release")
+if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+  set(default_build_type "Debug")
+endif()
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+	set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
+      STRING "Choose the type of build." FORCE)
+  # Set the possible values of build type for cmake-gui
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+    "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+endif()
 
 option(INSTALL_DOCS "Install documentation" ON)
 option(BUNDLE_EXAMPLES "Install/bundle example programs" ON)
